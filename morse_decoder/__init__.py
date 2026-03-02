@@ -1,10 +1,10 @@
 """
 Morse Decoder Package
-摩尔斯电码解码器包
+Morse code decoder package
 
-提供多种摩尔斯电码解码器实现：
-- V2: 高性能解码器，适合实时应用
-- V3: 先进算法解码器，适合高噪声环境
+Provides multiple Morse code decoder implementations:
+- V2: High-performance decoder for real-time applications
+- V3: Advanced algorithm decoder for high-noise environments
 """
 
 from .v2.decoder import MorseDecoder as MorseDecoderV2
@@ -26,15 +26,16 @@ from .utils.morse import (
 )
 
 __version__ = '1.0.0'
-__author__ = 'Morse Decoder Team'
+__author__ = 'william23374'
+__email__ = 'William23374@163.com'
 
-# 导出主要类
+# Export main classes
 __all__ = [
-    # 解码器
+    # Decoders
     'MorseDecoderV2',
     'MorseDecoderV3',
 
-    # 音频工具
+    # Audio utilities
     'load_wav_file',
     'save_wav_file',
     'normalize_audio',
@@ -42,18 +43,19 @@ __all__ = [
     'detect_dominant_frequency',
     'get_audio_info',
 
-    # 摩尔斯电码工具
+    # Morse code utilities
     'MORSE_CODE_DICT',
     'REVERSE_MORSE_DICT',
     'text_to_morse',
     'morse_to_text',
     'validate_morse_code',
 
-    # 元数据
+    # Metadata
     '__version__',
     '__author__',
+    '__email__',
 ]
 
 
-# 为了向后兼容，提供别名
-MorseDecoder = MorseDecoderV2  # 默认使用 V2
+# For backward compatibility, provide alias
+MorseDecoder = MorseDecoderV2  # Default to V2
