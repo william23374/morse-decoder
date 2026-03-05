@@ -67,6 +67,11 @@ def clean_result(result: str) -> str:
     return cleaned.strip()
 
 
+def format_with_char_spacing(result: str) -> str:
+    """Format result with space between each character"""
+    return ' '.join(result)
+
+
 def analyze_callsigns(result: str) -> list:
     """Extract potential amateur radio callsigns"""
     # Pattern for callsigns: 1-2 letters, 1 digit, 1-3 letters (e.g., YO3AAJ, EM3AAJ)
@@ -78,7 +83,8 @@ def analyze_callsigns(result: str) -> list:
 
 def decode_audio(file_path: str, decoder_type: str = 'v2',
                  frequency: int = None, bandwidth: int = 100,
-                 auto_detect: bool = True, verbose: bool = True) -> dict:
+                 auto_detect: bool = True, verbose: bool = True,
+                 char_spacing: bool = True) -> dict:
     """
     Decode audio file
 
@@ -183,7 +189,14 @@ def decode_audio(file_path: str, decoder_type: str = 'v2',
             print(f"\n{'='*70}")
             print(f"📝 Decoded Result:")
             print(f"{'='*70}")
-            print(f"{decoded_text}")
+
+            # Show result with character spacing
+            if char_spacing:
+                spaced_text = format_with_char_spacing(decoded_text)
+                print(f"{spaced_text}")
+            else:
+                print(f"{decoded_text}")
+
             print(f"\n⏱️  Decode Time: {decode_time:.2f}ms")
             print(f"📊 Processing Speed: {result['processing_speed']:.1f}x real-time")
 
@@ -280,6 +293,12 @@ Examples:
         help='Quiet mode (only output decoded text)'
     )
 
+    parser.add_argument(
+        '--no-char-spacing',
+        action='store_true',
+        help='Disable character spacing in output'
+    )
+
     args = parser.parse_args()
 
     # Decode audio
@@ -289,7 +308,8 @@ Examples:
         frequency=args.frequency,
         bandwidth=args.bandwidth,
         auto_detect=not args.no_auto_detect,
-        verbose=not args.quiet
+        verbose=not args.quiet,
+        char_spacing=not args.no_char_spacing
     )
 
     # Exit code
